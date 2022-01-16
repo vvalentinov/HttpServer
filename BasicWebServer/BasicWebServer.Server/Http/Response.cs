@@ -15,11 +15,13 @@
             this.Headers.Add(Header.Date, $"{DateTime.UtcNow:r}");
         }
 
-        public StatusCode StatusCode { get; set; }
+        public StatusCode StatusCode { get; init; }
 
         public HeaderCollection Headers { get;}
 
         public string Body { get; set; }
+
+        public Action<Request, Response> PreRenderAction { get;protected set; }
 
         public override string ToString()
         {

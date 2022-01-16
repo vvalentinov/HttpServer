@@ -16,7 +16,7 @@
             => new HttpServer(routes => routes
                 .MapGet("/", new TextResponse("Hello from the server!"))
                 .MapGet("/HTML", new HtmlResponse(HtmlForm))
-                .MapPost("/HTML", new TextResponse(""))
+                .MapPost("/HTML", new TextResponse("", Startup.AddFormDataAction))
                 .MapGet("/Redirect", new RedirectResponse("https://softuni.org/")))
             .Start();
     }

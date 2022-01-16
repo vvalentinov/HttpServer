@@ -5,7 +5,10 @@
 
     public class ContentResponse : Response
     {
-        public ContentResponse(string content, string contentType)
+        public ContentResponse(
+            string content,
+            string contentType,
+            Action<Request, Response> preRenderAction = null)
             : base(StatusCode.OK)
         {
             Guard.AgainstNull(content);
@@ -14,6 +17,8 @@
             this.Headers.Add(Header.ContentType, contentType);
 
             this.Body = content;
+
+            this.PreRenderAction = preRenderAction;
         }
 
         public override string ToString()
