@@ -68,14 +68,15 @@
 
         private static Method ParseMethod(string inputMethod)
         {
-            bool isParsed = Enum.TryParse(inputMethod, out Method method);
-
-            if (isParsed == false)
+            try
             {
-                throw new InvalidOperationException($"Method '{method}' is not supported");
+                return (Method)Enum.Parse(typeof(Method), inputMethod, true);
             }
+            catch (Exception)
+            {
 
-            return method;
+                throw new InvalidOperationException($"Method '{inputMethod}' is not supported.");
+            }
         }
     }
 }
