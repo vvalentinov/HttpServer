@@ -38,7 +38,7 @@
         {
         }
 
-        public void Start()
+        public async Task Start()
         {
             this.serverListener.Start();
 
@@ -47,30 +47,33 @@
 
             while (true)
             {
-                TcpClient connection = serverListener.AcceptTcpClient();
+                TcpClient connection = await serverListener.AcceptTcpClientAsync();
 
-                NetworkStream networkStream = connection.GetStream();
-
-                string requestText = this.ReadRequest(networkStream);
-
-                Console.WriteLine(requestText);
-
-                Request request = Request.Parse(requestText);
-
-                Response response = this.routingTable.MatchRequest(request);
-
-                if (response.PreRenderAction != null)
+                _ = Task.Run(async () =>
                 {
-                    response.PreRenderAction(request, response);
-                }
+                    NetworkStream networkStream = connection.GetStream();
 
-                WriteResponse(networkStream, response);
+                    string requestText = await this.ReadRequest(networkStream);
 
-                connection.Close();
+                    Console.WriteLine(requestText);
+
+                    Request request = Request.Parse(requestText);
+
+                    Response response = this.routingTable.MatchRequest(request);
+
+                    if (response.PreRenderAction != null)
+                    {
+                        response.PreRenderAction(request, response);
+                    }
+
+                    await WriteResponse(networkStream, response);
+
+                    connection.Close();
+                });
             }
         }
 
-        private string ReadRequest(NetworkStream networkStream)
+        private async Task<string> ReadRequest(NetworkStream networkStream)
         {
             int bufferLength = 1024;
             byte[] buffer = new byte[bufferLength];
@@ -81,7 +84,7 @@
 
             do
             {
-                int bytesRead = networkStream.Read(buffer, 0, bufferLength);
+                int bytesRead = await networkStream.ReadAsync(buffer, 0, bufferLength);
 
                 totalBytes += bytesRead;
                 if (totalBytes > 10 * bufferLength)
@@ -95,11 +98,11 @@
             return requestBuilder.ToString();
         }
 
-        private void WriteResponse(NetworkStream networkStream, Response response)
+        private async Task WriteResponse(NetworkStream networkStream, Response response)
         {
             byte[] responseBytes = Encoding.UTF8.GetBytes(response.ToString());
 
-            networkStream.Write(responseBytes);
+            await networkStream.WriteAsync(responseBytes);
         }
     }
 }
