@@ -12,8 +12,8 @@
 <input type='submit' value ='Save' />
 </form>";
 
-        public static void Main()
-            => new HttpServer(routes => routes
+        public static async Task Main()
+            => await new HttpServer(routes => routes
                 .MapGet("/", new TextResponse("Hello from the server!"))
                 .MapGet("/HTML", new HtmlResponse(HtmlForm))
                 .MapPost("/HTML", new TextResponse("", Startup.AddFormDataAction))
