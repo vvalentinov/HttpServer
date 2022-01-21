@@ -1,0 +1,15 @@
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.exe
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.deps.json
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.runtimeconfig.json
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.dll
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\bin\Debug\net6.0\ref\BasicWebServer.dll
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\bin\Debug\net6.0\BasicWebServer.pdb
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.csproj.AssemblyReference.cache
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.GeneratedMSBuildEditorConfig.editorconfig
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.AssemblyInfoInputs.cache
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.AssemblyInfo.cs
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.csproj.CoreCompileInputs.cache
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.dll
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\ref\BasicWebServer.dll
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.pdb
+C:\SoftUni\HttpServer\HttpServer\BasicWebServer\BasicWebServer\obj\Debug\net6.0\BasicWebServer.genruntimeconfig.cache
