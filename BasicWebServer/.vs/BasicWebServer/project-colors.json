@@ -1,0 +1,21 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "2a273d81-03cd-494c-a86f-4b0c14857e29": {
+      "ProjectGuid": "2a273d81-03cd-494c-a86f-4b0c14857e29",
+      "DisplayName": "BasicWebServer",
+      "ColorIndex": 0
+    },
+    "adf6e187-077b-4d0d-af6e-4e941cd5140b": {
+      "ProjectGuid": "adf6e187-077b-4d0d-af6e-4e941cd5140b",
+      "DisplayName": "BasicWebServer.Server",
+      "ColorIndex": 1
+    },
+    "982dbb57-d439-4783-bb92-1fe9cdfeab91": {
+      "ProjectGuid": "982dbb57-d439-4783-bb92-1fe9cdfeab91",
+      "DisplayName": "BasicWebServer.Demo",
+      "ColorIndex": 2
+    }
+  },
+  "NextColorIndex": 3
+}
