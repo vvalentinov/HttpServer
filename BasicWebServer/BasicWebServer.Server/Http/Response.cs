@@ -10,6 +10,7 @@
             this.StatusCode = statusCode;
 
             this.Headers = new HeaderCollection();
+            this.Cookies = new CookieCollection();
 
             this.Headers.Add(Header.Server, "My Web Server");
             this.Headers.Add(Header.Date, $"{DateTime.UtcNow:r}");
@@ -18,6 +19,8 @@
         public StatusCode StatusCode { get; init; }
 
         public HeaderCollection Headers { get;}
+
+        public CookieCollection Cookies { get;}
 
         public string Body { get; set; }
 
@@ -32,6 +35,11 @@
             foreach (Header header in this.Headers)
             {
                 result.AppendLine(header.ToString());
+            }
+
+            foreach (Cookie cookie in this.Cookies)
+            {
+                result.AppendLine($"{Header.SetCookie}: {cookie}");
             }
 
             result.AppendLine();
