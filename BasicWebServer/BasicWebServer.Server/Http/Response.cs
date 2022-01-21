@@ -42,6 +42,7 @@
                 result.AppendLine($"{Header.SetCookie}: {cookie}");
             }
 
+
             result.AppendLine();
 
             if (string.IsNullOrEmpty(this.Body) == false)
