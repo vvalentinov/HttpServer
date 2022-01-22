@@ -40,7 +40,6 @@
         private static void AddCookiesAction(Request request, Response response)
         {
             bool requestHasCookies = request.Cookies.Any();
-            string bodyText = "";
 
             if (requestHasCookies)
             {
@@ -58,16 +57,11 @@
                 }
 
                 cookieText.Append("</table>");
-
-                bodyText = cookieText.ToString();
+                response.Body = cookieText.ToString();
             }
             else
             {
-                bodyText = "<h1>Cookies set!</h1>";
-            }
-
-            if (requestHasCookies == false)
-            {
+                response.Body = "<h1>Cookies set!</h1>";
                 response.Cookies.Add("My-Cookie", "My-Value");
                 response.Cookies.Add("My-Second-Cookie", "My-Second-Value");
             }
