@@ -7,6 +7,8 @@
 
     public class Request
     {
+        private static Dictionary<string, Session> Sessions = new();
+
         public Method Method { get; private set; }
 
         public string Url { get; private set; }
@@ -16,6 +18,8 @@
         public CookieCollection Cookies { get; private set; }
 
         public string Body { get; private set; }
+
+        public Session Session { get; private set; }
 
         public IReadOnlyDictionary<string, string> Form { get; private set; }
 
@@ -33,6 +37,8 @@
 
             CookieCollection cookies = ParseCookies(headers);
 
+            Session session = GetSession(cookies);
+
             string[] bodyLines = lines.Skip(headers.Count + 2).ToArray();
 
             string body = string.Join("\r\n", bodyLines);
@@ -45,9 +51,22 @@
                 Url = url,
                 Headers = headers,
                 Cookies = cookies,
+                Session = session,
                 Body = body,
                 Form = form,
             };
+        }
+
+        private static Session GetSession(CookieCollection cookies)
+        {
+            string sessionId = cookies.Contains(Session.SessionCookieName) ? cookies[Session.SessionCookieName] : Guid.NewGuid().ToString();
+
+            if (Sessions.ContainsKey(sessionId) == false)
+            {
+                Sessions[sessionId] = new Session(sessionId);
+            }
+
+            return Sessions[sessionId];
         }
 
         private static CookieCollection ParseCookies(HeaderCollection headers)
