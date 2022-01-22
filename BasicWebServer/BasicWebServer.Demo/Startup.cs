@@ -32,14 +32,31 @@
                                .MapGet("/Redirect", new RedirectResponse("https://softuni.org/"))
                                .MapGet("/Content", new HtmlResponse(Startup.DownloadForm))
                                .MapPost("/Content", new TextFileResponse(Startup.FileName))
-                               .MapGet("/Cookies", new HtmlResponse("", Startup.AddCookiesAction)));
+                               .MapGet("/Cookies", new HtmlResponse("", Startup.AddCookiesAction))
+                               .MapGet("/Session", new TextResponse("", Startup.DisplaySessionInfoAction)));
 
             await server.Start();
         }
 
+        private static void DisplaySessionInfoAction(Request request, Response response)
+        {
+            bool sessionExists = request.Session.ContainsKey(Session.SessionCurrentDateKey);
+
+            if (sessionExists)
+            {
+                string currentDate = request.Session[Session.SessionCurrentDateKey];
+
+                response.Body = $"Stored date: {currentDate}!";
+            }
+            else
+            {
+                response.Body = "Current date stored!";
+            }
+        }
+
         private static void AddCookiesAction(Request request, Response response)
         {
-            bool requestHasCookies = request.Cookies.Any();
+            bool requestHasCookies = request.Cookies.Any(c=> c.Name != Session.SessionCookieName);
 
             if (requestHasCookies)
             {
