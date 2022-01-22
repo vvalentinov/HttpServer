@@ -11,6 +11,8 @@
 
         public const string SessionCurrentDateKey = "CurrentDate";
 
+        public const string SessionUserKey = "AuthenticatedUserId";
+
         public Session(string id)
         {
             Guard.AgainstNull(id, nameof(id));
@@ -31,6 +33,11 @@
         public bool ContainsKey(string key)
         {
             return this.data.ContainsKey(key);
+        }
+
+        public void Clear()
+        {
+            this.data.Clear();
         }
     }
 }

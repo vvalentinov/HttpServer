@@ -18,8 +18,18 @@
    <input type='submit' value ='Download Sites Content' /> 
 </form>";
 
+        private const string LoginForm = @"<form action='/Login' method='POST'>
+   Username: <input type='text' name='Username'/>
+   Password: <input type='text' name='Password'/>
+   <input type='submit' value ='Log In' /> 
+</form>";
+
+
         private const string FileName = "content.txt";
 
+        private const string Username = "user";
+
+        private const string Password = "user123";
 
         public static async Task Main()
         {
@@ -33,9 +43,52 @@
                                .MapGet("/Content", new HtmlResponse(Startup.DownloadForm))
                                .MapPost("/Content", new TextFileResponse(Startup.FileName))
                                .MapGet("/Cookies", new HtmlResponse("", Startup.AddCookiesAction))
-                               .MapGet("/Session", new TextResponse("", Startup.DisplaySessionInfoAction)));
+                               .MapGet("/Session", new TextResponse("", Startup.DisplaySessionInfoAction))
+                               .MapGet("/Login", new HtmlResponse(Startup.LoginForm))
+                               .MapPost("/Login", new HtmlResponse("", Startup.LoginAction))
+                               .MapGet("/Logout", new HtmlResponse("", Startup.LogoutAction))
+                               .MapGet("/UserProfile", new HtmlResponse("", Startup.GetUserDataAction)));
 
             await server.Start();
+        }
+
+        private static void GetUserDataAction(Request request, Response response)
+        {
+            if (request.Session.ContainsKey(Session.SessionUserKey))
+            {
+                response.Body = $"<h3>Currently logged-in user is with username '{Username}'</h3>"; 
+            }
+            else
+            {
+                response.Body = $"<h3>You should first log in - <a href='/Login'>Login</a></h3>";
+            }
+        }
+
+        private static void LogoutAction(Request request, Response response)
+        {
+            request.Session.Clear();
+
+            response.Body = "<h3>Logged out successfully!</h3>";
+        }
+
+        private static void LoginAction(Request request, Response response)
+        {
+            request.Session.Clear();
+
+            bool usernameMatches = request.Form["Username"] == Startup.Username;
+            bool passwordMatches = request.Form["Password"] == Startup.Password;
+
+            if (usernameMatches && passwordMatches)
+            {
+                request.Session[Session.SessionUserKey] = "MyUserId";
+                response.Cookies.Add(Session.SessionCookieName, request.Session.Id);
+
+                response.Body = "<h3>Logged successfully!</h3>";
+            }
+            else
+            {
+                response.Body = Startup.LoginForm;
+            }
         }
 
         private static void DisplaySessionInfoAction(Request request, Response response)
