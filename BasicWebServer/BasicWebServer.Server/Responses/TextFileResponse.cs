@@ -18,7 +18,8 @@
         {
             if (File.Exists(this.FileName))
             {
-                this.Body = File.ReadAllTextAsync(this.FileName).Result;
+                this.Body = string.Empty;
+                this.FileContent = File.ReadAllBytes(this.FileName);
 
                 long fileBytesCount = new FileInfo(this.FileName).Length;
 
